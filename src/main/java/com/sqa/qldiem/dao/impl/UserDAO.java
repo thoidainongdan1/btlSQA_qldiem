@@ -58,4 +58,13 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
         String sql = "UPDATE user SET status = 0 WHERE username = ?";
         update(sql, userName);
     }
+
+    @Override
+    public List<UserModel> getUsersByRole(int roleId) {
+        String sql = "SELECT * FROM user "
+                + "WHERE roleId = ? and status = 1 "
+                + "ORDER BY username";
+        List<UserModel> users = query(sql, new UserMapper(), roleId);
+        return users;
+    }
 }

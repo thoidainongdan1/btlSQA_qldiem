@@ -50,8 +50,12 @@ public class UserController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/views/updateUser.jsp");
             rd.forward(request, response);
         } else {
-            List<UserModel> listUser = userService.getAllUser();
-            SessionUtil.getInstance().putValue(request, "LISTUSER", listUser);
+            List<UserModel> listEmployee = userService.getUsersByRole(1);
+            List<UserModel> listLecturer = userService.getUsersByRole(2);
+            List<UserModel> listStudent = userService.getUsersByRole(3);
+            SessionUtil.getInstance().putValue(request, "LISTEMPLOYEE", listEmployee);
+            SessionUtil.getInstance().putValue(request, "LISTLECTURER", listLecturer);
+            SessionUtil.getInstance().putValue(request, "LISTSTUDENT", listStudent);
             RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
             rd.forward(request, response);
         }

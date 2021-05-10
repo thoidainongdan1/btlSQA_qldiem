@@ -122,6 +122,5 @@
             <button class="btn btn-danger center">Xuất file excel</button>
         </div>
 
-        <%@include file="/common/footer.jsp"%>
     </body>
 </html>

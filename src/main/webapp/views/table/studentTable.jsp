@@ -45,9 +45,9 @@
                 window.top.location.href = '<c:url value="/giaovu-capnhatnguoidung" />' + '?action=' + action + "&username=" + username;
             }
 
-            function myFunction() {
+            function findByName() {
                 var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
-                input = document.getElementById("myInput");
+                input = document.getElementById("name");
                 filter = input.value.toUpperCase();
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
@@ -68,7 +68,7 @@
         </script>
     </head>
     <body>
-        <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Tìm kiếm theo tên hoặc mã...">
+        <input type="text" class="form-control" id="name" onkeyup="findByName()" placeholder="Tìm kiếm theo tên hoặc mã..." style="margin-top: 5px; margin-bottom: 10px;">
         <table id="myTable">
             <tr class="header">
                 <th style="width: 20px">STT</th>
@@ -84,9 +84,9 @@
                 <th width="60px"></th>
                 <th width="60px"></th>
             </tr>
-            <c:if test="${not empty LISTUSER}">
+            <c:if test="${not empty LISTSTUDENT}">
                 <%
-                    List<UserModel> listUser = (List<UserModel>) session.getAttribute("LISTUSER");
+                    List<UserModel> listUser = (List<UserModel>) session.getAttribute("LISTSTUDENT");
                     int index = 0;
 
                     for (UserModel user : listUser) {
@@ -100,7 +100,7 @@
                     <td><%= gender%></td>
                     <td><%= user.getAddress()%></td>
                     <td><%= user.getPhone()%></td>
-                    <td><%= user.getRole().getName()%></td>
+                    <td>Sinh viên</td>
                     <td><%= user.getFaculty()%></td>
                     <td><%= user.getClassroom()%></td>
                     <td>

@@ -41,4 +41,9 @@ public class UserService implements IUserService {
         userDAO.removeUser(userName);
     }
 
+    @Override
+    public List<UserModel> getUsersByRole(int roleId) {
+        return userDAO.getUsersByRole(roleId);
+    }
+
 }

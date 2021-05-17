@@ -4,10 +4,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/common/lib.jsp"%>
 <!DOCTYPE html>
-<html>  
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-        <title>Theo dõi điểm mm</title>
+        <title>Theo dõi điểm</title>
 
         <link rel="stylesheet" href="css/user.css"> 
         <style>

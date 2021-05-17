@@ -5,7 +5,10 @@
  */
 package com.sqa.qldiem.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 /**
@@ -22,7 +25,7 @@ public class FormUtil {
             BeanUtils.populate(object, request.getParameterMap());
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             System.out.print(e.getMessage());
-        }
+        } 
         return object;
     }
 }

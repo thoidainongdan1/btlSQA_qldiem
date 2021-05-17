@@ -58,7 +58,6 @@
             <version>1.9.3</version>
             <type>jar</type>
         </dependency>
-
     </dependencies>
 
     <build>

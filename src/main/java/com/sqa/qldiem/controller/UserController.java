@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/giaovu-quanlynguoidung", "/giaovu-capnhatnguoidung"})
 public class UserController extends HttpServlet {
-    
+
     ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 
     @Inject
@@ -35,40 +35,59 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action != null && action.equals("addUserForm")) {
             String username = request.getParameter("username");
             String message = request.getParameter("message");
-            if(username != null) {
+            if (username != null) {
                 UserModel userupdate = userService.findByUserName(username);
                 SessionUtil.getInstance().putValue(request, "USERUPDATE", userupdate);
                 SessionUtil.getInstance().putValue(request, "username", username);
             }
-            if(message != null) {
+            if (message != null) {
                 SessionUtil.getInstance().putValue(request, "message", resourceBundle.getString(message));
             }
             RequestDispatcher rd = request.getRequestDispatcher("/views/updateUser.jsp");
             rd.forward(request, response);
         } else {
-            List<UserModel> listEmployee = userService.getUsersByRole(1);
-            List<UserModel> listLecturer = userService.getUsersByRole(2);
-            List<UserModel> listStudent = userService.getUsersByRole(3);
-            SessionUtil.getInstance().putValue(request, "LISTEMPLOYEE", listEmployee);
-            SessionUtil.getInstance().putValue(request, "LISTLECTURER", listLecturer);
-            SessionUtil.getInstance().putValue(request, "LISTSTUDENT", listStudent);
-            RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
-            rd.forward(request, response);
+            String tab = request.getParameter("tab");
+            if (tab != null) {
+                if (tab.equals("1")) {
+                    List<UserModel> listEmployee = userService.getUsersByRole(1);
+                    SessionUtil.getInstance().putValue(request, "LISTEMPLOYEE", listEmployee);
+                } else if (tab.equals("2")) {
+                    List<UserModel> listLecturer = userService.getUsersByRole(2);
+                    SessionUtil.getInstance().putValue(request, "LISTLECTURER", listLecturer);
+                } else if (tab.equals("3")) {
+                    List<UserModel> listStudent = userService.getUsersByRole(3);
+                    SessionUtil.getInstance().putValue(request, "LISTSTUDENT", listStudent);
+                }
+                SessionUtil.getInstance().putValue(request, "TABSELECTED", tab);
+                RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
+                rd.forward(request, response);
+            } else {
+                String t = (String) SessionUtil.getInstance().getValue(request, "TABSELECTED");
+                if (t != null) {
+                    response.sendRedirect(request.getContextPath() + "/giaovu-quanlynguoidung?tab=" + t);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/giaovu-quanlynguoidung?tab=" + 1);
+                }
+            }
+
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action != null && action.equals("addUser")) {
             UserModel user = FormUtil.toModel(UserModel.class, request);
+            System.out.println(user.getFullName());
             UserModel userDB = userService.findByUserName(user.getUserName());
-            if(userDB == null) {
+            if (userDB == null) {
                 userService.addUser(user);
                 String message = "Thêm thành công";
                 SessionUtil.getInstance().putValue(request, "message", message);
@@ -77,7 +96,7 @@ public class UserController extends HttpServlet {
                 SessionUtil.getInstance().putValue(request, "USER", user);
                 response.sendRedirect(request.getContextPath() + "/giaovu-capnhatnguoidung?action=addUserForm&message=username_exsist");
             }
-        } else if(action != null && action.equals("updateUser")) {
+        } else if (action != null && action.equals("updateUser")) {
             UserModel user = FormUtil.toModel(UserModel.class, request);
             user.setUserName((String) SessionUtil.getInstance().getValue(request, "username"));
             SessionUtil.getInstance().removeValue(request, "username");
@@ -85,12 +104,28 @@ public class UserController extends HttpServlet {
             String message = "Sửa thành công";
             SessionUtil.getInstance().putValue(request, "message", message);
             response.sendRedirect(request.getContextPath() + "/giaovu-quanlynguoidung");
-        } else if(action != null && action.equals("removeUser")) {
+        } else if (action != null && action.equals("removeUser")) {
             String username = request.getParameter("username");
+            String table = request.getParameter("table");
             userService.removeUser(username);
-            List<UserModel> listUser = userService.getAllUser();
-            SessionUtil.getInstance().putValue(request, "LISTUSER", listUser);
-            RequestDispatcher rd = request.getRequestDispatcher("/views/table/userTable.jsp");
+            String message = "Xoá thành công";
+            SessionUtil.getInstance().putValue(request, "message", message);
+            
+            int role = 1;
+            String valueToPut = "LISTEMPLOYEE";
+            String path = "/views/table/employeeTable.jsp";
+            if (table.equals("studentTable")) {
+                role = 3;
+                valueToPut = "LISTSTUDENT";
+                path = "/views/table/studentTable.jsp";
+            } else if (table.equals("lecturerTable")) {
+                role = 2;
+                valueToPut = "LISTLECTURER";
+                path = "/views/table/lecturerTable.jsp";
+            }
+            List<UserModel> listUser = userService.getUsersByRole(role);
+            SessionUtil.getInstance().putValue(request, valueToPut, listUser);
+            RequestDispatcher rd = request.getRequestDispatcher(path);
             rd.forward(request, response);
         }
     }

@@ -48,6 +48,7 @@ public class HomeController extends HttpServlet {
             rd.forward(request, response);
         } else if (action != null && action.equals("logout")) {
             SessionUtil.getInstance().removeValue(request, "USERMODEL");
+            SessionUtil.getInstance().removeValue(request, "TABSELECTED");
             response.sendRedirect(request.getContextPath() + "/trang-chu");
         } else {
             RequestDispatcher rd = request.getRequestDispatcher("/views/home.jsp");

@@ -70,7 +70,7 @@
         <c:if test="${not empty LISTRESULT}">
             <%
                 List<ResultModel> listResult = (List<ResultModel>) session.getAttribute("LISTRESULT");
-                SessionUtil.getInstance().removeValue(request, "LISTRESULT");
+//                SessionUtil.getInstance().removeValue(request, "LISTRESULT");
             %>
             <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Tìm kiếm theo tên hoặc mã...">
             <table id="myTable">
@@ -81,6 +81,7 @@
                     <th>Ngày sinh</th>
                     <th>Giới tính</th>
                     <th>Khoa</th>
+                    <th>Lớp</th>
                     <th>Điểm trung bình</th>
                     <th>Học bổng</th>
                 </tr>
@@ -97,6 +98,7 @@
                     <td><%= DateFormatUtil.format(user.getDateOfBirth())%></td>
                     <td><%= user.getGender() == 1 ? "Nam" : "Nữ"%></td>
                     <td><%= user.getFaculty()%></td>
+                    <td><%= user.getClassroom()%></td>
                     <td><%= result.getPoint()%></td>
                     <td><%= result.getScholarship()%></td>
                 </tr>

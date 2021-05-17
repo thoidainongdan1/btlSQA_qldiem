@@ -30,7 +30,7 @@
             #myInput {
                 margin-bottom: 12px;
             }
-            
+
             #myTable tr {
                 border-bottom: 1px solid #ddd;
             }
@@ -41,7 +41,7 @@
         </style>
 
         <script>
-            function update(action, username, user) {
+            function update(action, username) {
                 window.top.location.href = '<c:url value="/giaovu-capnhatnguoidung" />' + '?action=' + action + "&username=" + username;
             }
 
@@ -68,6 +68,12 @@
         </script>
     </head>
     <body>
+        <c:if test="${not empty message}">
+            <div class="alert alert-success" style="text-align: center">${message}</div>
+            <%
+                SessionUtil.getInstance().removeValue(request, "message");
+            %>
+        </c:if>
         <input type="text" class="form-control" id="name" onkeyup="findByName()" placeholder="Tìm kiếm theo tên hoặc mã..." style="margin-top: 5px; margin-bottom: 10px;">
         <table id="myTable">
             <tr class="header">
@@ -94,7 +100,7 @@
                     <td><%= ++index%></td>
                     <td><%= user.getUserName()%></td>
                     <td><%= user.getFullName()%></td>
-                    <td><%= DateFormatUtil.format(user.getDateOfBirth()) %></td>
+                    <td><%= DateFormatUtil.format(user.getDateOfBirth())%></td>
                     <td><%= gender%></td>
                     <td><%= user.getAddress()%></td>
                     <td><%= user.getPhone()%></td>
@@ -106,7 +112,8 @@
                         <form action='<c:url value="/giaovu-capnhatnguoidung"/>' method="post" id="deleteForm">
                             <input type="hidden" name="username" value="<%= user.getUserName()%>" />
                             <input type="hidden" name="action" value="removeUser" />
-                            <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá?') && alert('Xoá thành công')" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <input type="hidden" name="table" value="employeeTable" />
+                            <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá?')" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

@@ -8,7 +8,8 @@
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
         <link href="<c:url value='/css/loginn.css' />" rel="stylesheet" type="text/css" media="all"/>
 
         <style>
@@ -22,7 +23,56 @@
             .container {
                 text-align: center;
             }
+
+            form .error {
+                color: #ff0000;
+            }
         </style>
+
+        <script>
+            $(document).ready(function () {
+                jQuery.validator.addMethod("noSpace", function (value, element) {
+                    return value.indexOf(" ") < 0;
+                });
+
+                $("form[name=formLogin]").validate({
+                    rules: {
+                        userName: {
+                            required: true,
+                            noSpace: true
+                        },
+                        
+                        password: {
+                            required: true,
+                            noSpace: true
+                        }
+                    },
+
+                    messages: {
+                        userName: {
+                            required: "Yêu cầu điền tên đăng nhập!",
+                            noSpace: "Yêu cầu tên đăng nhập không chứa khoảng trắng!"
+                        },
+                        
+                        password: {
+                            required: "Yêu cầu điền mật khẩu!",
+                            noSpace: "Yêu cầu mật khẩu không chứa khoảng trắng!"
+                        }
+                    },
+
+                    invalidHandler: function(form, validator) {
+                        var errors = validator.numberOfInvalids();
+                        if (errors) {
+                            validator.errorList[0].element.focus();
+                        }
+                    },
+
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
@@ -38,9 +88,11 @@
                         <img src="image/user.png" id="icon" alt="User Icon" />
                     </div>
 
-                    <form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post">
-                        <input type="text" id="userName" class="fadeIn second" name="userName" placeholder="Tên đăng nhập" required>
-                        <input type="password" id="password" class="fadeIn third" name="password" placeholder="Mật khẩu" required>
+                    <form action="<c:url value='/dang-nhap'/>" name="formLogin" method="post">
+                        <input type="text" id="userName" class="fadeIn second" name="userName"
+                               placeholder="Tên đăng nhập" maxlength="20">
+                        <input type="password" id="password" class="fadeIn third" name="password"
+                               placeholder="Mật khẩu" maxlength="20">
                         <input type="hidden" value="login" name="action"/>
                         <input type="submit" class="fadeIn fourth" value="Đăng nhập">
                     </form>

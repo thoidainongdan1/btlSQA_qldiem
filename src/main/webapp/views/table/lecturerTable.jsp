@@ -41,7 +41,7 @@
         </style>
 
         <script>
-            function update(action, username, user) {
+            function update(action, username) {
                 window.top.location.href = '<c:url value="/giaovu-capnhatnguoidung" />' + '?action=' + action + "&username=" + username;
             }
 
@@ -68,55 +68,61 @@
         </script>
     </head>
     <body>
-        <input type="text" class="form-control" id="name" onkeyup="findByName()" placeholder="Tìm kiếm theo tên hoặc mã..." style="margin-top: 5px; margin-bottom: 10px;">
-    </div>
-    <table id="myTable">
-        <tr class="header">
-            <th style="width: 20px">STT</th>
-            <th>Mã</th>
-            <th>Họ tên</th>
-            <th>Ngày sinh</th>
-            <th>Giới tính</th>
-            <th>Địa chỉ</th>
-            <th>Số điện thoại</th>
-            <th>Chức vụ</th>
-            <th>Khoa</th>
-            <th width="60px"></th>
-            <th width="60px"></th>
-        </tr>
-        <c:if test="${not empty LISTLECTURER}">
+        <c:if test="${not empty message}">
+            <div class="alert alert-success" style="text-align: center">${message}</div>
             <%
-                List<UserModel> listUser = (List<UserModel>) session.getAttribute("LISTLECTURER");
-                int index = 0;
-
-                for (UserModel user : listUser) {
-                    String gender = user.getGender() == 1 ? "Nam" : "Nữ";
-            %>
-            <tr>
-                <td><%= ++index%></td>
-                <td><%= user.getUserName()%></td>
-                <td><%= user.getFullName()%></td>
-                <td><%= DateFormatUtil.format(user.getDateOfBirth())%></td>
-                <td><%= gender%></td>
-                <td><%= user.getAddress()%></td>
-                <td><%= user.getPhone()%></td>
-                <td>Giảng viên</td>
-                <td><%= user.getFaculty()%></td>
-                <td>
-                    <button type="submit" class="btn btn-primary" onclick="update('addUserForm', '<%= user.getUserName()%>')"><i class="fa fa-edit"></i></button>
-                </td>
-                <td>
-                    <form action='<c:url value="/giaovu-capnhatnguoidung"/>' method="post" id="deleteForm">
-                        <input type="hidden" name="username" value="<%= user.getUserName()%>" />
-                        <input type="hidden" name="action" value="removeUser" />
-                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá?') && alert('Xoá thành công')" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                    </form>
-                </td>
-            </tr>
-            <%
-                }
+                SessionUtil.getInstance().removeValue(request, "message");
             %>
         </c:if>
-    </table>
-</body>
+        <input type="text" class="form-control" id="name" onkeyup="findByName()" placeholder="Tìm kiếm theo tên hoặc mã..." style="margin-top: 5px; margin-bottom: 10px;">
+        <table id="myTable">
+            <tr class="header">
+                <th style="width: 20px">STT</th>
+                <th>Mã</th>
+                <th>Họ tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Chức vụ</th>
+                <th>Khoa</th>
+                <th width="60px"></th>
+                <th width="60px"></th>
+            </tr>
+            <c:if test="${not empty LISTLECTURER}">
+                <%
+                    List<UserModel> listUser = (List<UserModel>) session.getAttribute("LISTLECTURER");
+                    int index = 0;
+
+                    for (UserModel user : listUser) {
+                        String gender = user.getGender() == 1 ? "Nam" : "Nữ";
+                %>
+                <tr>
+                    <td><%= ++index%></td>
+                    <td><%= user.getUserName()%></td>
+                    <td><%= user.getFullName()%></td>
+                    <td><%= DateFormatUtil.format(user.getDateOfBirth())%></td>
+                    <td><%= gender%></td>
+                    <td><%= user.getAddress()%></td>
+                    <td><%= user.getPhone()%></td>
+                    <td>Giảng viên</td>
+                    <td><%= user.getFaculty()%></td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" onclick="update('addUserForm', '<%= user.getUserName()%>')"><i class="fa fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <form action='<c:url value="/giaovu-capnhatnguoidung"/>' method="post" id="deleteForm">
+                            <input type="hidden" name="username" value="<%= user.getUserName()%>" />
+                            <input type="hidden" name="action" value="removeUser" />
+                            <input type="hidden" name="table" value="lecturerTable" />
+                            <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá?')" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+            </c:if>
+        </table>
+    </body>
 </html>

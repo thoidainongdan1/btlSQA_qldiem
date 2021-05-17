@@ -85,11 +85,15 @@
                 var point2 = parseInt($('#frm_point2').val());
                 var point3 = parseInt($('#frm_point3').val());
                 var point4 = parseInt($('#frm_point4').val());
-                if (point1 + point2 + point3 + point4 !== 100) {
-                    alert("Lỗi: Tổng % 4 đầu điểm phải là 100%!!!")
+                if (point1 < 0 || point2 < 0 || point3 < 0 || point4 < 0) {
+                    alert("Lỗi: % đầu điểm phải lớn hơn hoặc bằng 0!!!");
                 } else {
-                    document.updateForm.submit();
-                    alert("Sửa thành công");
+                    if (point1 + point2 + point3 + point4 !== 100) {
+                        alert("Lỗi: Tổng % 4 đầu điểm phải là 100%!!!")
+                    } else {
+                        document.updateForm.submit();
+                        alert("Sửa thành công");
+                    }
                 }
             }
         </script>

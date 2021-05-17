@@ -26,6 +26,11 @@
                 margin-top: 10px;
             }
         </style>
+        <script>
+            function writeExcel() {
+
+            }
+        </script>
     </head>
     <body>
         <%@include file="/common/header.jsp"%>
@@ -103,7 +108,7 @@
                                         %>
                                     </select>
                                 </div>
-                                    
+
                                 <div class="form-group col-md-3">
                                     <input class="form-control" type="text" name="quantity" placeholder="Nhập số lượng..." value="<%=quantity%>" required />
                                 </div>
@@ -116,11 +121,46 @@
                 </div>
                 <br>
                 <div class="panel-body">
-                    <iframe src="views/table/statTable.jsp" width="100%" height="550px" name="the-iFrame" frameborder="0"></iframe>
+                    <iframe id="frame" src="views/table/statTable.jsp" width="100%" height="550px" name="the-iFrame" frameborder="0"></iframe>
                 </div>
             </div>
-            <button class="btn btn-danger center">Xuất file excel</button>
+            <button class="btn btn-danger center" onclick="ExportToExcel()" <c:if test="${empty LISTRESULT}">disabled</c:if>>Xuất file excel</button>
         </div>
 
+        <script>
+            function ExportToExcel() {
+                var iframe = document.getElementById("frame");
+                var tab = iframe.contentWindow.document.getElementsByTagName("table")[0];
+                var tab_text = "<table border='2px'>";
+                var textRange;
+                var j = 0;
+
+                for (j = 0; j < tab.rows.length; j++)
+                {
+                    tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                    //tab_text=tab_text+"</tr>";
+                }
+
+                tab_text = tab_text + "</table>";
+                tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+                tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+                tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE ");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+                {
+                    txtArea1.document.open("txt/html", "replace");
+                    txtArea1.document.write(tab_text);
+                    txtArea1.document.close();
+                    txtArea1.focus();
+                    sa = txtArea1.document.execCommand("SaveAs", true, "table.xls");
+                } else                 //other browser not tested on IE 11
+                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+                return (sa);
+            }
+        </script>
     </body>
 </html>

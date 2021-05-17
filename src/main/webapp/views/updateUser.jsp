@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
         <c:if test="${not empty USERUPDATE}">
             <title>Sửa người dùng</title>
         </c:if>
@@ -15,8 +14,17 @@
 
         <link rel="stylesheet" href="css/user.css">
         <style>
-            .btn {
-                width : 100px;
+            .btn-toolbar {
+                margin-bottom: 15px;
+            }
+            
+            .btn-success {
+                width: 100px;
+                margin-right: 15px;
+            }
+            
+            .btn-dark {
+                width: 100px;
             }
         </style>
 
@@ -40,7 +48,7 @@
                     <br>
                 </div>
                 <div class="panel-body">
-                    <form action='<c:url value="/giaovu-capnhatnguoidung"/>' method="post">
+                    <form action='<c:url value="/giaovu-capnhatnguoidung"/>' name="userForm" method="post" accept-charset="utf-8">
                         <c:if test="${not empty USERUPDATE}">
                             <%
                                 UserModel user = (UserModel) session.getAttribute("USERUPDATE");
@@ -146,6 +154,11 @@
                             </div>
                             <br>
                             <div class="form-group row">
+                                <label class="col-md-2">Lớp:</label>
+                                <input type="text" class="form-control col-md-10" disabled name="classroom" value="<%= user.getClassroom() %>">
+                            </div>
+                            <br>
+                            <div class="form-group row">
                                 <label class="col-md-2">Mã: <span>*</span></label>
                                 <input type="text" class="form-control col-md-10" name="userName" value="<%= user.getUserName()%>" required disabled>
                             </div>
@@ -156,8 +169,8 @@
                             </div>
                             <br>
                             <input type="hidden" name="action" value="updateUser">
-                            <div class="btn-group end">
-                                <input type="submit" class="btn btn-success" value="Sửa">
+                            <div class="btn-toolbar">
+                                <input type="submit" class="btn btn-success" value="Lưu">
                             </c:if>
 
                             <c:if test="${empty USERUPDATE}">
@@ -212,6 +225,11 @@
                                     </div>
                                     <br>
                                     <div class="form-group row">
+                                        <label class="col-md-2">Lớp:</label>
+                                        <input type="text" class="form-control col-md-10" disabled name="classroom">
+                                    </div>
+                                    <br>
+                                    <div class="form-group row">
                                         <label class="col-md-2">Mã: <span>*</span></label>
                                         <input type="text" class="form-control col-md-10" name="userName" required>
                                     </div>
@@ -222,8 +240,8 @@
                                     </div>
                                     <br>
                                     <input type="hidden" name="action" value="addUser">
-                                    <div class="btn-group end">
-                                        <input type="submit" class="btn btn-success" value="Thêm">
+                                    <div class="btn-toolbar">
+                                        <input type="submit" class="btn btn-success" value="Lưu">
                                     </c:if>
 
                                     <c:if test="${not empty USER}">
@@ -291,7 +309,7 @@
                                         <br>
                                         <div class="form-group row">
                                             <label class="col-md-2">Khoa:</label>
-                                            <select class="form-control col-md-10" name="faculty">
+                                            <select class="form-control col-md-10" name="faculty" disabled>
                                                 <%
                                                     if (!userAddFail.getFaculty().equals("")) {
                                                 %>
@@ -321,6 +339,11 @@
                                         </div>
                                         <br>
                                         <div class="form-group row">
+                                            <label class="col-md-2">Lớp:</label>
+                                            <input type="text" class="form-control col-md-10" name="classroom" disabled value="<%= userAddFail.getClassroom() %>">
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
                                             <label class="col-md-2">Mã: <span>*</span></label>
                                             <input type="text" class="form-control col-md-10" name="userName" required autofocus>
                                         </div>
@@ -340,8 +363,8 @@
                                         </div>
                                         <br>
                                         <input type="hidden" name="action" value="addUser">
-                                        <div class="btn-group end">
-                                            <input type="submit" class="btn btn-success" value="Thêm">
+                                        <div class="btn-toolbar">
+                                            <input type="submit" class="btn btn-success" value="Lưu">
                                         </c:if>
                                     </c:if>
                                     <button type="button" class="btn btn-dark" onclick="back()">Trở lại</button>
@@ -361,11 +384,27 @@
                     if(this.value == 1) {
                         $('select[name="faculty"]').prop("disabled", true);
                         $('select[name="faculty"]').val("");
+                        $('input[name="classroom"]').prop("disabled", true);
+                        $('input[name="classroom"]').val("");
+                    } else if(this.value == 2) {
+                        $('select[name="faculty"]').prop("disabled", false);
+                        $('input[name="classroom"]').prop("disabled", true);
+                        $('input[name="classroom"]').val("");
                     } else {
                         $('select[name="faculty"]').prop("disabled", false);
+                        $('input[name="classroom"]').prop("disabled", false);
                     }
                 });
             });
+            
+            window.onload = function () {
+                if ($('select[name="roleId"]').children("option:selected").val() == 3) {
+                    $('select[name="faculty"]').prop("disabled", false);
+                    $('input[name="classroom"]').prop("disabled", false);
+                } else if ($('select[name="roleId"]').children("option:selected").val() == 2) {
+                    $('select[name="faculty"]').prop("disabled", false);
+                } 
+            };
         </script>
     </body>
 </html>

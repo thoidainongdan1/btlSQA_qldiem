@@ -28,10 +28,10 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
     public Long addUser(UserModel user) {
         user.setStatus(1);
         String sql = "INSERT INTO user (username, password, fullname, "
-                + "address, faculty, phone, dateOfBirth, gender, status, roleid) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+                + "address, faculty, classroom, phone, dateOfBirth, gender, status, roleid) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         return insert(sql, user.getUserName(), user.getPassword(), user.getFullName(),
-                user.getAddress(), user.getFaculty(), user.getPhone(), user.getDateOfBirth(),
+                user.getAddress(), user.getFaculty(), user.getClassroom(), user.getPhone(), user.getDateOfBirth(),
                 user.getGender(), user.getStatus(), user.getRoleId());
     }
 
@@ -46,10 +46,10 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
     @Override
     public void updateUser(UserModel user) {
         String sql = "UPDATE user SET password = ?, fullname = ?, "
-                + "address = ?, faculty = ?, phone = ?, dateOfBirth = ?, gender = ?, roleid = ? "
+                + "address = ?, faculty = ?, classroom = ?, phone = ?, dateOfBirth = ?, gender = ?, roleid = ? "
                 + "WHERE username = ?";
         update(sql, user.getPassword(), user.getFullName(),
-                user.getAddress(), user.getFaculty(), user.getPhone(), user.getDateOfBirth(), 
+                user.getAddress(), user.getFaculty(), user.getClassroom(), user.getPhone(), user.getDateOfBirth(), 
                 user.getGender(), user.getRoleId(), user.getUserName());
     }
 

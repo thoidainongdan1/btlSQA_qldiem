@@ -19,6 +19,7 @@ public class ResultMapper implements RowMapper<ResultModel> {
                 user.setUserName(resultSet.getString("username"));
                 user.setFullName(resultSet.getString("fullname"));
                 user.setFaculty(resultSet.getString("faculty"));
+                user.setClassroom(resultSet.getString("classroom"));
                 user.setDateOfBirth(resultSet.getDate("dateOfBirth"));
                 user.setGender(resultSet.getInt("gender"));
                 result.setUser(user);

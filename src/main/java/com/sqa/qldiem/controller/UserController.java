@@ -7,6 +7,7 @@ package com.sqa.qldiem.controller;
 
 import com.sqa.qldiem.model.UserModel;
 import com.sqa.qldiem.service.IUserService;
+import com.sqa.qldiem.service.impl.UserService;
 import com.sqa.qldiem.utils.FormUtil;
 import com.sqa.qldiem.utils.SessionUtil;
 import java.io.IOException;
@@ -52,17 +53,22 @@ public class UserController extends HttpServlet {
             rd.forward(request, response);
         } else {
             String tab = request.getParameter("tab");
-            if (tab != null) {
-                if (tab.equals("1")) {
-                    List<UserModel> listEmployee = userService.getUsersByRole(1);
-                    SessionUtil.getInstance().putValue(request, "LISTEMPLOYEE", listEmployee);
-                } else if (tab.equals("2")) {
-                    List<UserModel> listLecturer = userService.getUsersByRole(2);
-                    SessionUtil.getInstance().putValue(request, "LISTLECTURER", listLecturer);
-                } else if (tab.equals("3")) {
-                    List<UserModel> listStudent = userService.getUsersByRole(3);
-                    SessionUtil.getInstance().putValue(request, "LISTSTUDENT", listStudent);
-                }
+
+            if (tab != null && tab.equals("1")) {
+                List<UserModel> listEmployee = userService.getUsersByRole(1);
+                SessionUtil.getInstance().putValue(request, "LISTEMPLOYEE", listEmployee);
+                SessionUtil.getInstance().putValue(request, "TABSELECTED", tab);
+                RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
+                rd.forward(request, response);
+            } else if (tab != null && tab.equals("2")) {
+                List<UserModel> listLecturer = userService.getUsersByRole(2);
+                SessionUtil.getInstance().putValue(request, "LISTLECTURER", listLecturer);
+                SessionUtil.getInstance().putValue(request, "TABSELECTED", tab);
+                RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
+                rd.forward(request, response);
+            } else if (tab != null && tab.equals("3")) {
+                List<UserModel> listStudent = userService.getUsersByRole(3);
+                SessionUtil.getInstance().putValue(request, "LISTSTUDENT", listStudent);
                 SessionUtil.getInstance().putValue(request, "TABSELECTED", tab);
                 RequestDispatcher rd = request.getRequestDispatcher("/views/userManagement.jsp");
                 rd.forward(request, response);
@@ -74,7 +80,6 @@ public class UserController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/giaovu-quanlynguoidung?tab=" + 1);
                 }
             }
-
         }
     }
 
@@ -84,8 +89,7 @@ public class UserController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action != null && action.equals("addUser")) {
-            UserModel user = FormUtil.toModel(UserModel.class, request);
-            System.out.println(user.getFullName());
+            UserModel user = FormUtil.toUserModel(request);
             UserModel userDB = userService.findByUserName(user.getUserName());
             if (userDB == null) {
                 userService.addUser(user);
@@ -97,7 +101,7 @@ public class UserController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/giaovu-capnhatnguoidung?action=addUserForm&message=username_exsist");
             }
         } else if (action != null && action.equals("updateUser")) {
-            UserModel user = FormUtil.toModel(UserModel.class, request);
+            UserModel user = FormUtil.toUserModel(request);
             user.setUserName((String) SessionUtil.getInstance().getValue(request, "username"));
             SessionUtil.getInstance().removeValue(request, "username");
             userService.updateUser(user);
@@ -109,8 +113,7 @@ public class UserController extends HttpServlet {
             String table = request.getParameter("table");
             userService.removeUser(username);
             String message = "Xoá thành công";
-            SessionUtil.getInstance().putValue(request, "message", message);
-            
+
             int role = 1;
             String valueToPut = "LISTEMPLOYEE";
             String path = "/views/table/employeeTable.jsp";
@@ -124,9 +127,15 @@ public class UserController extends HttpServlet {
                 path = "/views/table/lecturerTable.jsp";
             }
             List<UserModel> listUser = userService.getUsersByRole(role);
+            SessionUtil.getInstance().putValue(request, "message", message);
             SessionUtil.getInstance().putValue(request, valueToPut, listUser);
             RequestDispatcher rd = request.getRequestDispatcher(path);
             rd.forward(request, response);
         }
+    }
+
+    public UserService getService() {
+        userService = new UserService();
+        return (UserService) userService;
     }
 }

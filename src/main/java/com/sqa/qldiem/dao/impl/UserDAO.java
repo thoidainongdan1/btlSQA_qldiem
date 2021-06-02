@@ -17,14 +17,6 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
     }
 
     @Override
-    public List<UserModel> getAllUser() {
-        String sql = "SELECT * FROM user AS u INNER JOIN role AS r ON r.id = u.roleid WHERE status = 1 "
-                + "ORDER BY roleid, username";
-        List<UserModel> users = query(sql, new UserMapper());
-        return users;
-    }
-
-    @Override
     public Long addUser(UserModel user) {
         user.setStatus(1);
         String sql = "INSERT INTO user (username, password, fullname, "
@@ -38,7 +30,7 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
     @Override
     public UserModel findByUserName(String userName) {
         String sql = "SELECT * FROM user AS u INNER JOIN role AS r "
-                + "ON r.id = u.roleid WHERE username = ?";
+                + "ON r.id = u.roleid WHERE username = ? AND status = 1";
         List<UserModel> users = query(sql, new UserMapper(), userName);
         return users.isEmpty() ? null : users.get(0);
     }

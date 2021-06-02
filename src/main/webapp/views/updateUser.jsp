@@ -26,6 +26,10 @@
             .btn-dark {
                 width: 100px;
             }
+            
+            form .error {
+                color: #ff0000;
+            }
         </style>
 
         <script>
@@ -393,6 +397,104 @@
                     } else {
                         $('select[name="faculty"]').prop("disabled", false);
                         $('input[name="classroom"]').prop("disabled", false);
+                    }
+                });
+                
+                //validate form
+                jQuery.validator.addMethod("noSpace", function (value, element) {
+                    return value.indexOf(" ") < 0;
+                });
+                
+                jQuery.validator.addMethod("checkPhone", function (value, element) {
+                    var format = /^03[0-9]{8}$/;
+                    
+                    return value.match(format);
+                });
+
+                $("form[name=userForm]").validate({
+                    rules: {
+                        fullName: {
+                            required: true
+                        },
+                        
+                        dateOfBirth: {
+                            required: true
+                        },
+                        
+                        gender: {
+                            required: true
+                        },
+                        
+                        address: {
+                            required: true
+                        },
+                        
+                        phone: {
+                            required: true,
+                            checkPhone: true
+                        },
+                        
+                        roleId: {
+                            required: true
+                        },
+                        
+                        userName: {
+                            required: true,
+                            noSpace: true
+                        },
+                        
+                        password: {
+                            required: true,
+                            noSpace: true
+                        }
+                    },
+
+                    messages: {
+                        fullName: {
+                            required: "Yêu cầu không bỏ trống họ tên!"
+                        },
+                        
+                        dateOfBirth: {
+                            required: "Yêu cầu không bỏ trống ngày sinh!"
+                        },
+                        
+                        gender: {
+                            required: "Yêu cầu không bỏ trống giới tính!"
+                        },
+                        
+                        address: {
+                            required: "Yêu cầu không bỏ trống địa chỉ!"
+                        },
+                        
+                        phone: {
+                            required: "Yêu cầu không bỏ trống số điện thoại!",
+                            checkPhone: "Yêu cầu nhập đúng số điện thoại (bắt đầu bằng 03 và có 10 số)"
+                        },
+                        
+                        roleId: {
+                            required: "Yêu cầu không bỏ trống chức vụ!"
+                        },
+                        
+                        userName: {
+                            required: "Yêu cầu không bỏ trống mã!",
+                            noSpace: "Yêu cầu mã không chứa khoảng trắng!"
+                        },
+                        
+                        password: {
+                            required: "Yêu cầu không bỏ trống mật khẩu!",
+                            noSpace: "Yêu cầu mật khẩu không chứa khoảng trắng!"
+                        }
+                    },
+
+                    invalidHandler: function(form, validator) {
+                        var errors = validator.numberOfInvalids();
+                        if (errors) {
+                            validator.errorList[0].element.focus();
+                        }
+                    },
+
+                    submitHandler: function (form) {
+                        form.submit();
                     }
                 });
             });

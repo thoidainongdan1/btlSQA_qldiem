@@ -26,11 +26,6 @@
                 margin-top: 10px;
             }
         </style>
-        <script>
-            function writeExcel() {
-
-            }
-        </script>
     </head>
     <body>
         <%@include file="/common/header.jsp"%>
@@ -39,7 +34,7 @@
                 <div class="panel-heading">
                     <h1 class="title">Thống kê điểm</h1>
                     <br>
-                    <form method="get" action='<c:url value="/giaovu-thongke"/>'>
+                    <form method="get" action='<c:url value="/giaovu-thongke"/>' name="statForm">
                         <div class="row">
 
                             <c:if test="${empty SEMESTER}">
@@ -58,7 +53,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <input class="form-control" type="text" name="quantity" placeholder="Nhập số lượng..." required />
+                                    <input class="form-control" type="number" name="quantity" placeholder="Nhập số lượng cần thống kê..." min="1" required />
                                 </div>
                             </c:if>
 
@@ -110,7 +105,7 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                    <input class="form-control" type="text" name="quantity" placeholder="Nhập số lượng..." value="<%=quantity%>" required />
+                                    <input class="form-control" type="number" name="quantity" placeholder="Nhập số lượng cần thống kê..." value="<%=quantity%>" min="1" required />
                                 </div>
                             </c:if>
 
@@ -161,6 +156,14 @@
 
                 return (sa);
             }
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('form[name=statForm]').submit(function (event) {
+                    var quantity = parseInt($('input[name=quantity]').val());
+                    $('input[name=quantity]').val(quantity);
+                });
+            });
         </script>
     </body>
 </html>

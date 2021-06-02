@@ -7,6 +7,7 @@ package com.sqa.qldiem.controller;
 
 import com.sqa.qldiem.model.PointModel;
 import com.sqa.qldiem.service.IPointService;
+import com.sqa.qldiem.service.impl.PointService;
 import com.sqa.qldiem.utils.SessionUtil;
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Administrator
  */
 @WebServlet(urlPatterns = {"/giaovu-theodoidiem"})
-public class TrackPointController extends HttpServlet {
+public class PointController extends HttpServlet {
     
     @Inject
     private IPointService pointService;
@@ -54,5 +55,10 @@ public class TrackPointController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    }
+    
+    public PointService getService() {
+        pointService = new PointService();
+        return (PointService) pointService;
     }
 }

@@ -7,7 +7,6 @@ public interface IUserDAO {
 
     UserModel findByUserNameAndPasswordAndStatus(String userName, String password, Integer status);
     UserModel findByUserName(String userName);
-    List<UserModel> getAllUser();
     List<UserModel> getUsersByRole(int roleId);
     Long addUser(UserModel user);
     void updateUser(UserModel user);

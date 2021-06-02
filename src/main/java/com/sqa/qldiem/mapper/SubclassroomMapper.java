@@ -23,7 +23,8 @@ public class SubclassroomMapper implements RowMapper<SubclassroomModel> {
             subclass.setCname(rs.getString("cname"));
             try {
                 SubjectModel subject = new SubjectModel();
-                subject.setName(rs.getString("name"));
+                subject.setName(rs.getString("st.name"));
+                subject.setQuantity(rs.getInt("st.quantity"));
                 subject.setPoint1(rs.getInt("st.point1"));
                 subject.setPoint2(rs.getInt("st.point2"));
                 subject.setPoint3(rs.getInt("st.point3"));

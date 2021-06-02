@@ -1,6 +1,7 @@
 package com.sqa.qldiem.service.impl;
 
 import com.sqa.qldiem.dao.IUserDAO;
+import com.sqa.qldiem.dao.impl.UserDAO;
 import com.sqa.qldiem.model.UserModel;
 import com.sqa.qldiem.service.IUserService;
 import java.util.List;
@@ -14,11 +15,6 @@ public class UserService implements IUserService {
     @Override
     public UserModel findByUserNameAndPasswordAndStatus(String userName, String password, Integer status) {
         return userDAO.findByUserNameAndPasswordAndStatus(userName, password, status);
-    }
-
-    @Override
-    public List<UserModel> getAllUser() {
-        return userDAO.getAllUser();
     }
 
     @Override
@@ -46,4 +42,7 @@ public class UserService implements IUserService {
         return userDAO.getUsersByRole(roleId);
     }
 
+    public void setDAO() {
+        userDAO = new UserDAO();
+    }
 }

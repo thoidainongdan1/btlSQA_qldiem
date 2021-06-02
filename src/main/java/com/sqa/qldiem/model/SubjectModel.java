@@ -1,17 +1,22 @@
 package com.sqa.qldiem.model;
 
+import java.util.Objects;
+
 public class SubjectModel {
 
     private String name;
     private int quantity, point1, point2, point3, point4;
-    private String semester;
 
-    public String getSemester() {
-        return semester;
+    public SubjectModel() {
     }
 
-    public void setSemester(String semester) {
-        this.semester = semester;
+    public SubjectModel(String name, int quantity, int point1, int point2, int point3, int point4) {
+        this.name = name;
+        this.quantity = quantity;
+        this.point1 = point1;
+        this.point2 = point2;
+        this.point3 = point3;
+        this.point4 = point4;
     }
 
     public int getQuantity() {
@@ -62,4 +67,55 @@ public class SubjectModel {
         this.point4 = point4;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + this.quantity;
+        hash = 97 * hash + this.point1;
+        hash = 97 * hash + this.point2;
+        hash = 97 * hash + this.point3;
+        hash = 97 * hash + this.point4;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SubjectModel other = (SubjectModel) obj;
+        if (this.quantity != other.quantity) {
+            return false;
+        }
+        if (this.point1 != other.point1) {
+            return false;
+        }
+        if (this.point2 != other.point2) {
+            return false;
+        }
+        if (this.point3 != other.point3) {
+            return false;
+        }
+        if (this.point4 != other.point4) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "SubjectModel{" + "name=" + name + ", quantity=" + quantity + ", point1=" + point1 + ", point2=" + point2 + ", point3=" + point3 + ", point4=" + point4 + '}';
+    }
+
+    
 }

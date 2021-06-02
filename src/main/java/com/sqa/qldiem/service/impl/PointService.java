@@ -6,6 +6,7 @@
 package com.sqa.qldiem.service.impl;
 
 import com.sqa.qldiem.dao.IPointDAO;
+import com.sqa.qldiem.dao.impl.PointDAO;
 import com.sqa.qldiem.model.PointModel;
 import com.sqa.qldiem.service.IPointService;
 import com.sqa.qldiem.utils.FileUtil;
@@ -27,14 +28,15 @@ public class PointService implements IPointService {
     public List<PointModel> findBySemesterAndFacultyAndSubjectClassroom(String semester, String faculty, String subjectClass) {
         String fileName = semester.substring(3, 4) + semester.substring(9, 13) + "_" + faculty + "_" + subjectClass;
         File file = new File("stored/" + fileName);
+        System.out.println(file.getAbsolutePath());
         List<PointModel> list = null;
         if (file.exists()) {
             list = FileUtil.readFile(file);
         } else {
             list = pointDAO.findBySemesterAndFacultyAndSubjectClassroom(semester, faculty, subjectClass);
-            if (list != null) {
+            if (list.size() > 0) {
                 for (PointModel p : list) {
-                    p.calculate();
+                    p.setAvgPointAndResult();
                 }
                 Collections.sort(list);
                 FileUtil.writeFile(file, list);
@@ -43,4 +45,7 @@ public class PointService implements IPointService {
         return list;
     }
 
+    public void setDAO() {
+        pointDAO = new PointDAO();
+    }
 }

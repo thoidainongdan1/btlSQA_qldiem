@@ -7,10 +7,8 @@ package com.sqa.qldiem.controller;
 
 import com.sqa.qldiem.model.UserModel;
 import com.sqa.qldiem.service.IUserService;
-import com.sqa.qldiem.utils.FormUtil;
+import com.sqa.qldiem.service.impl.UserService;
 import com.sqa.qldiem.utils.SessionUtil;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.inject.Inject;
@@ -38,11 +36,9 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null && action.equals("login")) {
-            String alert = request.getParameter("alert");
             String message = request.getParameter("message");
-            if (message != null && alert != null) {
+            if (message != null) {
                 request.setAttribute("message", resourceBundle.getString(message));
-                request.setAttribute("alert", alert);
             }
             RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
             rd.forward(request, response);
@@ -61,7 +57,9 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null && action.equals("login")) {
-            UserModel user = FormUtil.toModel(UserModel.class, request);
+            UserModel user = new UserModel();
+            user.setUserName(request.getParameter("userName"));
+            user.setPassword(request.getParameter("password"));
             user = userService.findByUserNameAndPasswordAndStatus(user.getUserName(), user.getPassword(), 1);
             if (user != null) {
                 SessionUtil.getInstance().putValue(request, "USERMODEL", user);
@@ -70,5 +68,10 @@ public class HomeController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login&message=username_password_invalid&alert=danger");
             }
         }
+    }
+    
+    public UserService getService() {
+        userService = new UserService();
+        return (UserService) userService;
     }
 }

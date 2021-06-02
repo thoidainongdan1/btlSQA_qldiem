@@ -14,5 +14,8 @@ import java.util.List;
  */
 public interface ISubjectDAO {
     List<SubjectModel> getAllSubject();
+    Long addSubject(SubjectModel subject);
     void updateSubject(SubjectModel subject);
+    void deleteSubject(String name);
+    SubjectModel findSubjectByName(String name);
 }

@@ -50,12 +50,12 @@
 
                     messages: {
                         userName: {
-                            required: "Yêu cầu điền tên đăng nhập!",
+                            required: "Yêu cầu không bỏ trống tên đăng nhập!",
                             noSpace: "Yêu cầu tên đăng nhập không chứa khoảng trắng!"
                         },
                         
                         password: {
-                            required: "Yêu cầu điền mật khẩu!",
+                            required: "Yêu cầu không bỏ trống mật khẩu!",
                             noSpace: "Yêu cầu mật khẩu không chứa khoảng trắng!"
                         }
                     },
@@ -80,7 +80,7 @@
             <div class="wrapper fadeInDown">
                 <div id="formContent">
                     <c:if test="${not empty message}">
-                        <div class="alert alert-${alert}" style="text-align: center">
+                        <div class="alert alert-danger" style="text-align: center">
                             ${message}
                         </div>
                     </c:if>

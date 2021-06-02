@@ -6,6 +6,7 @@
 package com.sqa.qldiem.service.impl;
 
 import com.sqa.qldiem.dao.IResultDAO;
+import com.sqa.qldiem.dao.impl.ResultDAO;
 import com.sqa.qldiem.model.ResultModel;
 import com.sqa.qldiem.service.IResultService;
 import java.util.List;
@@ -29,4 +30,7 @@ public class ResultService implements IResultService {
         return list;
     }
     
+    public void setDAO() {
+        resultDAO = new ResultDAO();
+    }
 }

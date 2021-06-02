@@ -7,6 +7,7 @@ package com.sqa.qldiem.controller;
 
 import com.sqa.qldiem.model.ResultModel;
 import com.sqa.qldiem.service.IResultService;
+import com.sqa.qldiem.service.impl.ResultService;
 import com.sqa.qldiem.utils.SessionUtil;
 import java.io.IOException;
 import java.util.List;
@@ -52,5 +53,10 @@ public class StatisticsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    }
+    
+    public ResultService getService() {
+        resultService = new ResultService();
+        return (ResultService) resultService;
     }
 }

@@ -27,7 +27,7 @@ public class PointMapper implements RowMapper<PointModel> {
                 user.setDateOfBirth(resultSet.getDate("dateOfBirth"));
                 user.setGender(resultSet.getInt("gender"));
                 point.setUser(user);
-                
+
                 SubclassroomModel subclass = new SubclassroomMapper().mapRow(resultSet);
                 point.setSubclass(subclass);
             } catch (SQLException e) {

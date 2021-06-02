@@ -18,6 +18,7 @@ import java.sql.Date;
 public class AbstractDAO<T> implements GenericDAO<T> {
 
     ResourceBundle resourceBundle = ResourceBundle.getBundle("db");
+    Connection connection;
 
     public Connection getConnection() {
         try {
@@ -35,7 +36,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
     @Override
     public List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters) {
         List<T> results = new ArrayList<>();
-        Connection connection = null;
+        connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -90,7 +91,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
     @Override
     public void update(String sql, Object... parameters) {
-        Connection connection = null;
+        connection = null;
         PreparedStatement statement = null;
         try {
             connection = getConnection();
@@ -111,10 +112,10 @@ public class AbstractDAO<T> implements GenericDAO<T> {
             try {
                 if (connection != null) {
                     connection.close();
-                }
+        } 
                 if (statement != null) {
                     statement.close();
-                }
+    }
             } catch (SQLException e2) {
                 e2.printStackTrace();
             }
@@ -123,7 +124,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
     @Override
     public Long insert(String sql, Object... parameters) {
-        Connection connection = null;
+        connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -151,7 +152,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
             try {
                 if (connection != null) {
                     connection.close();
-                }
+        } 
                 if (statement != null) {
                     statement.close();
                 }
@@ -164,5 +165,4 @@ public class AbstractDAO<T> implements GenericDAO<T> {
         }
         return null;
     }
-
 }

@@ -1,0 +1,14 @@
+.fix-nav {
+  width: 100%;
+}
+
+.fix-nav a {
+  padding: 10px;
+  color: white;
+  width: 25%; 
+  text-align: center; 
+}
+
+.navbar-brand {
+    margin-left: 20px;
+}

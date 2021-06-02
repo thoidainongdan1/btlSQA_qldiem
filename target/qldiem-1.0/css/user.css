@@ -1,0 +1,13 @@
+.title {
+    margin-top: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.end {
+    margin-bottom: 30px;
+}
+
+span {
+    color: red;
+}

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(urlPatterns = {"/trang-chu", "/dang-nhap", "/thoat"})
+@WebServlet(urlPatterns = {"/trang-chu", "/dang-nhap", "/thoat"}) 
 public class HomeController extends HttpServlet {
 
     ResourceBundle resourceBundle = ResourceBundle.getBundle("message");

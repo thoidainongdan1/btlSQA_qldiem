@@ -1,0 +1,15 @@
+com\sqa\qldiem\service\impl\ResultServiceTest.class
+com\sqa\qldiem\controller\HomeControllerTest.class
+com\sqa\qldiem\dao\impl\UserDAOTest.class
+com\sqa\qldiem\controller\UserControllerTest.class
+com\sqa\qldiem\dao\impl\ResultDAOTest.class
+com\sqa\qldiem\dao\impl\PointDAOTest.class
+com\sqa\qldiem\utils\DateFormatUtilTest.class
+com\sqa\qldiem\dao\impl\SubjectDAOTest.class
+com\sqa\qldiem\service\impl\UserServiceTest.class
+com\sqa\qldiem\utils\FormUtilTest.class
+com\sqa\qldiem\service\impl\SubjectServiceTest.class
+com\sqa\qldiem\filter\LoginRequiredFilterTest.class
+com\sqa\qldiem\service\impl\PointServiceTest.class
+com\sqa\qldiem\utils\FileUtilTest.class
+com\sqa\qldiem\utils\SessionUtilTest.class

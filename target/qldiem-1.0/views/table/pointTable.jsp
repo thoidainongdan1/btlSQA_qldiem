@@ -82,10 +82,10 @@
                     <th>Giới tính</th>
                     <th>Khoa</th>
                     <th>Lớp</th>
-                    <th>Điểm CC (<%= subject.getPoint1()%>%)</th>
-                    <th>Điểm BT (<%= subject.getPoint2()%>%)</th>
-                    <th>Điểm TH (<%= subject.getPoint3()%>%)</th>
-                    <th>Điểm KTHP (<%= subject.getPoint4()%>%)</th>
+                    <th id="p1">Điểm CC (<%= subject.getPoint1()%>%)</th>
+                    <th id="p2">Điểm BT (<%= subject.getPoint2()%>%)</th>
+                    <th id="p3">Điểm TH (<%= subject.getPoint3()%>%)</th>
+                    <th id="p4">Điểm KTHP (<%= subject.getPoint4()%>%)</th>
                     <th>Tổng kết</th>
                     <th>Điểm chữ</th>
                 </tr>

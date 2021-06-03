@@ -80,7 +80,7 @@
             <div class="wrapper fadeInDown">
                 <div id="formContent">
                     <c:if test="${not empty message}">
-                        <div class="alert alert-danger" style="text-align: center">
+                        <div id="message" class="alert alert-danger" style="text-align: center">
                             ${message}
                         </div>
                     </c:if>
@@ -94,7 +94,7 @@
                         <input type="password" id="password" class="fadeIn third" name="password"
                                placeholder="Mật khẩu" maxlength="20">
                         <input type="hidden" value="login" name="action"/>
-                        <input type="submit" class="fadeIn fourth" value="Đăng nhập">
+                        <input id="btn-login" type="submit" class="fadeIn fourth" value="Đăng nhập">
                     </form>
 
                     <div id="formFooter">

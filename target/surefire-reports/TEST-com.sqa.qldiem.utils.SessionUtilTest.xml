@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.sqa.qldiem.utils.SessionUtilTest" time="0.058" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="com.sqa.qldiem.utils.SessionUtilTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_221\jre\bin"/>
     <property name="java.vm.version" value="25.221-b11"/>
     <property name="user.country.format" value="VN"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Administrator\Documents\NetBeansProjects\qldiem"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Administrator\Desktop\btlSQA_qldiem"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,9 +16,9 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="test" value="com.sqa.qldiem.utils.**.*Test"/>
+    <property name="test" value="com.sqa.qldiem.**.*Test"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Administrator\Documents\NetBeansProjects\qldiem"/>
+    <property name="user.dir" value="C:\Users\Administrator\Desktop\btlSQA_qldiem"/>
     <property name="java.runtime.version" value="1.8.0_221-b11"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_221\jre\lib\endorsed"/>
@@ -49,7 +49,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_221\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.sqa.qldiem.utils.**.*Test -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2 RC\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.sqa.qldiem.**.*Test -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2 RC\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="user.language.format" value="vi"/>
@@ -67,7 +67,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.sqa.qldiem.utils.SessionUtilTest" name="testPutValue" time="0.057"/>
-  <testcase classname="com.sqa.qldiem.utils.SessionUtilTest" name="testGetValue" time="0.001"/>
+  <testcase classname="com.sqa.qldiem.utils.SessionUtilTest" name="testPutValue" time="0"/>
+  <testcase classname="com.sqa.qldiem.utils.SessionUtilTest" name="testGetValue" time="0"/>
   <testcase classname="com.sqa.qldiem.utils.SessionUtilTest" name="testRemoveValue" time="0"/>
 </testsuite>

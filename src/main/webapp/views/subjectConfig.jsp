@@ -169,7 +169,7 @@
 
                                 for (SubjectModel subject : listSubject) {
                             %>
-                            <tr>
+                            <tr class="body">
                                 <td class="td_id"><%= ++index%></td>
                                 <td class="td_name"><%= subject.getName()%></td>
                                 <td class="td_quantity"><%= subject.getQuantity()%></td>
@@ -234,7 +234,7 @@
                         </div>
                         <input type="hidden" name="name" id="name">
                         <input type="hidden" name="action" id="action">
-                        <input type="submit" class="btn btn-success" value="Lưu" onclick="submitForm()">
+                        <input type="submit" class="btn btn-success btn_save" value="Lưu" onclick="submitForm()">
                     </form>
                 </div>
             </div>

@@ -192,7 +192,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2">Giới tính: <span>*</span></label>
                                         <div class="col-md-10">
-                                            <input type="radio" name="gender" value="1" required>
+                                            <input type="radio" name="gender" value="1" checked>
                                             <label for="male">Nam</label>
                                             <input type="radio" name="gender" value="0" style="margin-left: 20px">
                                             <label for="female">Nữ</label>

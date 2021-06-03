@@ -32,7 +32,7 @@
                     </c:if>
                     <c:if test="${empty USERMODEL}">
                         <li class="nav-item">
-                            <a class="nav-link" href='<c:url value="/dang-nhap?action=login"/>'>Đăng nhập</a>
+                            <a id="btn-login" class="nav-link" href='<c:url value="/dang-nhap?action=login"/>'>Đăng nhập</a>
                         </li>
                     </c:if>
                 </ul>
@@ -40,10 +40,10 @@
         </div> 
 
         <div class="navbar bg-danger fix-nav">
-            <a class="nav-link" href='<c:url value="/giaovu-quanlynguoidung"/>'>Quản lý người dùng</a>
-            <a class="nav-link" href='<c:url value="/giaovu-theodoidiem"/>'>Theo dõi điểm</a>
-            <a class="nav-link" href='<c:url value="/giaovu-thongke"/>'>Thống kê</a>
-            <a class="nav-link" href='<c:url value="/giaovu-cauhinh"/>'>Cấu hình</a>
+            <a id="quanlyuser" class="nav-link" href='<c:url value="/giaovu-quanlynguoidung"/>'>Quản lý người dùng</a>
+            <a id="theodoidiem" class="nav-link" href='<c:url value="/giaovu-theodoidiem"/>'>Theo dõi điểm</a>
+            <a id="thongke" class="nav-link" href='<c:url value="/giaovu-thongke"/>'>Thống kê</a>
+            <a id="cauhinh" class="nav-link" href='<c:url value="/giaovu-cauhinh"/>'>Cấu hình</a>
         </div>
     </body>
 </html>
